@@ -17,6 +17,8 @@ website:
             text: test project
           - href: projects/test-1.qmd
             text: Simple-test-example-from-class
+          - href: projects/test-2.qmd
+            text: instructions
       - about.qmd
       - stat-515.qmd
       # Add additional projects...

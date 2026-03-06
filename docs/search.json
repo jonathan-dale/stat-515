@@ -42,6 +42,20 @@
     "text": "Source\n\nData / concept: U.S. Geological Survey, January 2025; value of reserves at gold price $4,362/troy oz.\nOriginal infographic: Visual Capitalist reference image:."
   },
   {
+    "objectID": "projects/test-2.html",
+    "href": "projects/test-2.html",
+    "title": "test-2",
+    "section": "",
+    "text": "add new file\nadd text to the new file\nedit file named “_quarto.yml”\nrender the website in R-studio\npush changes to github\nsee changes in the site"
+  },
+  {
+    "objectID": "projects/test-2.html#add-some-image-redesign-and-render-it-with-render-website",
+    "href": "projects/test-2.html#add-some-image-redesign-and-render-it-with-render-website",
+    "title": "test-2",
+    "section": "",
+    "text": "add new file\nadd text to the new file\nedit file named “_quarto.yml”\nrender the website in R-studio\npush changes to github\nsee changes in the site"
+  },
+  {
     "objectID": "projects/test-1.html",
     "href": "projects/test-1.html",
     "title": "test-1",
