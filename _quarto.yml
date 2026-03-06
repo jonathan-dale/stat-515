@@ -3,18 +3,28 @@ project:
   output-dir: docs
 
 website:
-  title: "stat-515"
+  title: "STAT-515 Projects"
   navbar:
+    logo: "logo.png"
     left:
       - href: index.qmd
         text: Home
+      - text: Projects
+        menu:
+          - href: projects/gold-reserves.qmd
+            text: Gold Reserves (ggplot2 Redesign)
       - about.qmd
+      - stat-515.qmd
+      # Add additional projects...
+      # Create projects/my-project.qmd with a YAML header (title, optional description) and your content/code.
+      # Then extend the navbar list with a new entry like below
+      # - href: projects/my-project.qmd
+      #   text: My Project Title
 
 format:
   html:
     theme:
-      - cosmo
-      - brand
+      - journal
     css: styles.css
     toc: true
 

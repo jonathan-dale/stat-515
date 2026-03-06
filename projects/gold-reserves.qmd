@@ -1,0 +1,78 @@
+---
+title: "Ranked Unmined Gold Reserves by Country"
+description: "ggplot2 redesign of the gold reserves infographic (Visual Capitalist style)."
+---
+
+
+## Overview
+
+This project is a recreation of the **"Unmined Reserves of Gold"** infographic, below, using **ggplot2**. The original shows estimated gold reserves by country in metric tons and USD value. This redesign focuses on clearly stating the message. 
+
+![Source image: https://elements.visualcapitalist.com/ranked-unmined-gold-reserves-by-country-2025/](../images/GoldDepositFooters.jpg)
+
+## The image
+For this project I drew inspiration from my fiancee Emily's home office, where she conducts research on economic markets. As a professional economist she frequently works with data-rich visual resources. Among these, one particularly influential source was [Elements](https://elements.visualcapitalist.com/), a platform dedicated to creating data-driven visuals to bridge the gap between the global trends shaping our future and the raw materials powering them.
+
+![Emily's home office](../images/IMG_1250.jpeg)
+
+
+### Original
+In the original image, **"Ranked: Unmined Gold Reserves by Country"**, the graphic presents a detailed comparison of countries' unmined gold reserves,  ranked by estimated weight. The figure reports reserves in metric tons adn also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4362 per unit. 
+
+The data source the original image references is credetid to the [U.S Geological Survey Janurary 2025](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf/). As stated in the reports table of contentx, the section reporting gold is found on page 82 directly after germanium. A table is found on the following page which includes the [data](../data/data.csv) used for this project.
+
+```{R}
+"World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru,
+Russia, and Tanzania were revised based on company and Government reports. "
+```
+
+
+```{r setup}
+#| label: setup
+#| include: false
+library(readr)
+library(ggplot2)
+library(dplyr)
+library(scales)
+
+# Begin by loading the data from the csv file. 
+data <- read_csv("../data/data.csv")
+# summarise(data)
+```
+
+
+
+## Data preparation
+```{r prep}
+#| label: prep
+#| echo: true
+
+# Prepare the data, create a filtered set of data from the frame above
+```
+
+
+
+```{r reserves-plot}
+#| label: reserves-plot
+#| fig-width: 10
+#| fig-height: 8
+#| fig-cap: "Unmined gold reserves by country (metric tons). Value in USD using gold price $4,362/troy oz (U.S. Geological Survey, January 2025)."
+
+# Create the ggplot image adding layers incrementally
+
+```
+
+
+
+
+
+
+```{r}
+# Include sources for the original images and data below
+
+```
+
+## Source
+
+- **Data / concept:** U.S. Geological Survey, January 2025; value of reserves at gold price $4,362/troy oz.
+- **Original infographic:** Visual Capitalist [reference image:](../images/GoldDepositFooters.jpg).

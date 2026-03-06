@@ -1,13 +1,32 @@
 ---
-title: "stat-515"
+title: "STAT-515"
+#image: "https://avatars.githubusercontent.com/u/47530196?v=4&size=250"
+about: 
+  id: Jonathan-Dale
+  template: jolla
+  image-shape: rounded
+  image-width: 15em
+  links:
+    - text: Email
+      icon: envelope
+      href: mailto:jdale7@gmu.edu
+    - text: GitHub
+      icon: github
+      href: https://github.com/jonathan-dale
+    - text: YouTube
+      icon: youtube
+      href: https://youtube.com/@jonathan-dale
+
 ---
 
-This is a Quarto website.
+Welcome to STAT-515! This site contains course materials, projects, and statistical analyses. The Midterm project includes identifying an existign visualization from the web or another published source and creating several redesigned versions of that same visualization. The goal is to offer critique and improve an existing visual with several redesign images.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
 
-```{r}
-1 + 1
+<!-- ## Quick Navigation
 
-print("This is the change")
-```
+- [Projects](projects/mining-analysis.qmd) - Explore data analysis projects
+- [About](about.qmd) - Learn more about this course -->
+
+---
+
+*Click on "Projects" in the navigation menu above to view all course projects.*

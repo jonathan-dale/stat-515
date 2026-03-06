@@ -1,9 +1,28 @@
 ---
 title: "About"
+page-layout: full
+
+about:
+    id: hero-heading
+    template: trestles
+    image-width: 100%
+    image: "https://avatars.githubusercontent.com/u/47530196?v=4&size=250"
+
 ---
 
-About this site
+:::{#hero-heading}
 
-```{r}
-1 + 1
-```
+## [Jonathan Dale](https://github.com/jonathan-dale)
+
+### Hello!
+ I am Jonathan, a Master's student at George Mason University in the Department of Statistics. I am interested in data science and statistics as it relates to machine learning and artificial intelligence. 
+
+ I received a Bachelor's degree in Applied Physics from Armstrong Atlantic State University in 2014.
+
+ My research interests include:
+
+ - Semiconductor fabrication
+ - Experimental design
+ - Computer vision
+
+ I also enjoy hiking, biking, gardening, and I have a fruit orchard in my front yard.
