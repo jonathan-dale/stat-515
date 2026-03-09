@@ -144,16 +144,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Gold Reserves (ggplot2 Redesign)</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../projects/new.html">
- <span class="dropdown-text">test project</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../projects/test-1.html">
- <span class="dropdown-text">Simple-test-example-from-class</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../projects/test-2.html">
- <span class="dropdown-text">instructions</span></a>
+    <a class="dropdown-item" href="../projects/instructions.html">
+ <span class="dropdown-text">new project instructions</span></a>
   </li>  
     </ul>
   </li>
@@ -184,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
   <li><a href="#the-image" id="toc-the-image" class="nav-link" data-scroll-target="#the-image">The image</a>
   <ul class="collapse">
-  <li><a href="#original" id="toc-original" class="nav-link" data-scroll-target="#original">Original</a></li>
+  <li><a href="#original-image-design" id="toc-original-image-design" class="nav-link" data-scroll-target="#original-image-design">Original image design</a></li>
   </ul></li>
   <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a></li>
   <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
@@ -237,29 +229,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Emily’s home office</figcaption>
 </figure>
 </div>
-<section id="original" class="level3">
-<h3 class="anchored" data-anchor-id="original">Original</h3>
+<section id="original-image-design" class="level3">
+<h3 class="anchored" data-anchor-id="original-image-design">Original image design</h3>
 <p>In the original image, <strong>“Ranked: Unmined Gold Reserves by Country”</strong>, the graphic presents a detailed comparison of countries’ unmined gold reserves, ranked by estimated weight. The figure reports reserves in metric tons adn also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4362 per unit.</p>
-<p>The data source the original image references is credetid to the <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf/">U.S Geological Survey Janurary 2025</a>. As stated in the reports table of contentx, the section reporting gold is found on page 82 directly after germanium. A table is found on the following page which includes the <a href="../data/data.csv">data</a> used for this project.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="st">"World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru,</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="st">Russia, and Tanzania were revised based on company and Government reports. "</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru,\nRussia, and Tanzania were revised based on company and Government reports. "</code></pre>
-</div>
-</div>
+<p>The data source the original image references is credetid to the <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf/">U.S Geological Survey Janurary 2025</a>. As stated in the reports table of content, the section reporting gold is found on page 82 directly after germanium. A table is found on the following page which includes the <a href="../data/data.csv">data</a> used for this project.I copied the data from the chart into file named data.csv, it contains a column for the country name, production 2023 and 2024 and finely the total reserves.</p>
+<blockquote class="blockquote">
+<p>“World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru, Russia, and Tanzania were revised based on company and Government reports.”</p>
+</blockquote>
 </section>
 </section>
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
+<p>The data included 19 samples of 4 measurements. As you can see, the data contains NA values we will need to remove, and also last row, “World total” which is not included in the original image.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare the data, create a filtered set of data from the frame above</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 19 × 4
+   Country               Production_2023 Production_2024e Reserves
+   &lt;chr&gt;                           &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt;
+ 1 United States                     170              160     3000
+ 2 Australia                         296              290    12000
+ 3 Brazil                             71               70     2400
+ 4 Burkina Faso                       57               60       NA
+ 5 Canada                            198              200     3200
+ 6 China                             375              380     3100
+ 7 Colombia                           61               60      700
+ 8 Ghana                             126              130     1000
+ 9 Indonesia                         100              100     3600
+10 Kazakhstan                        133              130     2300
+11 Mali                               67               70      800
+12 Mexico                            127              130     1400
+13 Peru                              100              100     2500
+14 Russia                            313              310    12000
+15 South Africa                      104              100     5000
+16 Tanzania                           55               60      400
+17 Uzbekistan                        120              120     1800
+18 Other countries                   777              780     9200
+19 World total (rounded)            3250             3300    64000</code></pre>
+</div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the ggplot image adding layers incrementally</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a filtered tibble removing NA and "World total...."</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>reserves <span class="ot">=</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Reserves)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>reserves</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 17 × 4
+   Country         Production_2023 Production_2024e Reserves
+   &lt;chr&gt;                     &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt;
+ 1 United States               170              160     3000
+ 2 Australia                   296              290    12000
+ 3 Brazil                       71               70     2400
+ 4 Canada                      198              200     3200
+ 5 China                       375              380     3100
+ 6 Colombia                     61               60      700
+ 7 Ghana                       126              130     1000
+ 8 Indonesia                   100              100     3600
+ 9 Kazakhstan                  133              130     2300
+10 Mali                         67               70      800
+11 Mexico                      127              130     1400
+12 Peru                        100              100     2500
+13 Russia                      313              310    12000
+14 South Africa                104              100     5000
+15 Tanzania                     55               60      400
+16 Uzbekistan                  120              120     1800
+17 Other countries             777              780     9200</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the ggplot image adding layers incrementally</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include sources for the original images and data below</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include sources for the original images and data below</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="source" class="level2">

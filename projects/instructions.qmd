@@ -1,0 +1,22 @@
+---
+title: "Adding a new project"
+format: html
+---
+
+
+# Instructions to add a new project
+
+We will leave this around in the case that any new projects are added in the future.
+
+## Add a new .qmd file to the projects directory
+add some image, redesign, and render it with "Render Website"
+
+### steps:
+- Add a new .qmd file to the projects directory
+- Make adjustments to the file
+    - Be sure to include any images that are linked in the qmd file
+- Edit the file named "_quarto.yml"
+    - website.navbar.left.menu Include the link and test to display.
+- Render the website in R-studio
+- Push changes to github
+- See changes in the github hosted site
