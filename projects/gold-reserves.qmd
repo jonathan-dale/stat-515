@@ -2,7 +2,7 @@
 title: "Ranked Unmined Gold Reserves by Country"
 date: 2026-03-16
 format: html
-description: "ggplot2 redesign of the gold reserves infographic (Visual Capitalist style)."
+description: "A redesign of the gold reserves infographic by Visual Capitalist."
 authors:
   - "Jonathan Dale"
   - "Arya Arun"
