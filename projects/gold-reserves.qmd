@@ -1,25 +1,46 @@
 ---
 title: "Ranked Unmined Gold Reserves by Country"
+date: 2026-03-16
+format: html
 description: "ggplot2 redesign of the gold reserves infographic (Visual Capitalist style)."
+authors:
+  - "Jonathan Dale"
+  - "Arya Arun"
 ---
+
+
+## Introduction
+
+The dynamics of the global gold market is governed by not only the above-ground stock but also the geographic distribution of reserves in the ground which are yet to be extracted. According to recent estimates from the U.S. Geological Survey (USGS), the amount of proven gold reserves total on the order of tens of thousands metric tons worldwide with substantial concentrations among just a limited number of producers. 
+
+In a 2025 visualization published by Visual Capitalist, nations are ranked by their un-mined gold reserves using the data from the USGS estimate in order to illuminate the perspective geography of future extraction. While the original image is visually engaging and communicates the basic ranking of nations, the design makes it difficult to extract precise quantitative comparisons. It falls short of an analytical instrument and is not sophisticated enough to provide the level of accuracy required for through analysis.
+
+
+In this project, we will address those limitations through systematic reconstruction of the original design using data from the 2025 USGS survey, the exact data cited in the original graphic. The report is accompanied by descriptive statistical summaries, analysis and visualizations redesigned using R using r-markdown.
+
+
+
+
+## The image selection
+For this project I drew inspiration from my fiancee Emily's home office, where she conducts research on economic markets. As a professional economist she frequently works with data-rich visual resources. Among these, one particularly influential source was [Elements](https://elements.visualcapitalist.com/), a platform that uses data visualization to explore the relationship between global trends and the natural resources behind them.
+
+![Emily's home office](../images/IMG_1250.jpeg)
+
+
 
 
 ## Overview
 
-This project is a recreation of the **"Unmined Reserves of Gold"** infographic, below, using **ggplot2**. The original shows estimated gold reserves by country in metric tons and USD value. This redesign focuses on clearly stating the message. 
-
-![Source image: https://elements.visualcapitalist.com/ranked-unmined-gold-reserves-by-country-2025/](../images/GoldDepositFooters.jpg)
-
-## The image
-For this project I drew inspiration from my fiancee Emily's home office, where she conducts research on economic markets. As a professional economist she frequently works with data-rich visual resources. Among these, one particularly influential source was [Elements](https://elements.visualcapitalist.com/), a platform dedicated to creating data-driven visuals to bridge the gap between the global trends shaping our future and the raw materials powering them.
-
-![Emily's home office](../images/IMG_1250.jpeg)
+This project is a recreation of the **"Unmined Reserves of Gold"** info graphic (shown below) using **ggplot2**. The original shows estimated gold reserves by country displayed in metric tons and valued in USD determined by a gold price factor of $4,362 per troy ounce. 
 
 
 ### Original image design
 In the original image, **"Ranked: Unmined Gold Reserves by Country"**, the graphic presents a detailed comparison of countries' unmined gold reserves,  ranked by estimated weight. The figure reports reserves in metric tons adn also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4362 per unit. 
 
-The data source the original image references is credetid to the [U.S Geological Survey Janurary 2025](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf/). As stated in the reports table of content, the section reporting gold is found on page 82 directly after germanium. A table is found on the following page which includes the [data](../data/data.csv) used for this project.I copied the data from the chart into file named data.csv, it contains a column for the country name, production 2023 and 2024 and finely the total reserves.
+### Original image:
+![Source image: https://elements.visualcapitalist.com/ranked-unmined-gold-reserves-by-country-2025/](../images/GoldDepositFooters.jpg)
+
+The data source from the original image references the [U.S Geological Survey Janurary 2025](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf/). In the reports table of content, a section reporting gold is found on page 82 directly after germanium. On the following page, a table is displayed which includes the [data](../data/data.csv) used for this project. I copied the data from the report and created a file named data.csv, it contains the following columns: country name, production 2023 and 2024 and total reserves.
 
 >  "World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru,
 Russia, and Tanzania were revised based on company and Government reports. "
@@ -27,7 +48,7 @@ Russia, and Tanzania were revised based on company and Government reports. "
 
 ```{r setup}
 #| label: setup
-#| include: false
+#| include: true
 
 library(tidyverse)
 
@@ -43,7 +64,7 @@ The data included 19 samples of 4 measurements. As you can see, the data contain
 ```{r prep}
 #| label: prep
 #| include: true
-#| echo: true
+#| echo: false
 
 data
 ```

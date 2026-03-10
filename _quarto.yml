@@ -12,7 +12,7 @@ website:
       - text: Projects
         menu:
           - href: projects/gold-reserves.qmd
-            text: Gold Reserves (ggplot2 Redesign)
+            text: Midterm Redesign Gold Reserves
           - href: projects/instructions.qmd
             text: new project instructions
       - about.qmd
