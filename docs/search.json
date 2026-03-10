@@ -11,14 +11,14 @@
     "href": "projects/instructions.html",
     "title": "Adding a new project",
     "section": "",
-    "text": "We will leave this around in the case that any new projects are added in the future.\n\n\nadd some image, redesign, and render it with “Render Website”\n\n\n\nAdd a new .qmd file to the projects directory\nMake adjustments to the file\n\nBe sure to include any images that are linked in the qmd file\n\nEdit the file named “_quarto.yml”\n\nwebsite.navbar.left.menu Include the link and test to display.\n\nRender the website in R-studio\nPush changes to github\nSee changes in the github hosted site"
+    "text": "We will leave this around in the case that any new projects are added in the future.\n\n\nadd some image, redesign, and render it with “Render Website”\n\n\n\nAdd a new .qmd file to the projects directory\nMake adjustments to the file\n\nBe sure to include any images that are linked in the qmd file\n\nEdit the file named “_quarto.yml”\n\nwebsite.navbar.left.menu Include the link and test to display.\n\nRender the website in R-studio\nPush changes to github\nSee changes in the github hosted site\ntest"
   },
   {
     "objectID": "projects/instructions.html#add-a-new-.qmd-file-to-the-projects-directory",
     "href": "projects/instructions.html#add-a-new-.qmd-file-to-the-projects-directory",
     "title": "Adding a new project",
     "section": "",
-    "text": "add some image, redesign, and render it with “Render Website”\n\n\n\nAdd a new .qmd file to the projects directory\nMake adjustments to the file\n\nBe sure to include any images that are linked in the qmd file\n\nEdit the file named “_quarto.yml”\n\nwebsite.navbar.left.menu Include the link and test to display.\n\nRender the website in R-studio\nPush changes to github\nSee changes in the github hosted site"
+    "text": "add some image, redesign, and render it with “Render Website”\n\n\n\nAdd a new .qmd file to the projects directory\nMake adjustments to the file\n\nBe sure to include any images that are linked in the qmd file\n\nEdit the file named “_quarto.yml”\n\nwebsite.navbar.left.menu Include the link and test to display.\n\nRender the website in R-studio\nPush changes to github\nSee changes in the github hosted site\ntest"
   },
   {
     "objectID": "projects/gold-reserves.html",
