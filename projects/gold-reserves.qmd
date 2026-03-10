@@ -27,8 +27,6 @@ For this project I drew inspiration from my fiancee Emily's home office, where s
 ![Emily's home office](../images/IMG_1250.jpeg)
 
 
-
-
 ## Overview
 
 This project is a recreation of the **"Unmined Reserves of Gold"** info graphic (shown below) using **ggplot2**. The original shows estimated gold reserves by country displayed in metric tons and valued in USD determined by a gold price factor of $4,362 per troy ounce. 
