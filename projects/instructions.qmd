@@ -20,3 +20,4 @@ add some image, redesign, and render it with "Render Website"
 - Render the website in R-studio
 - Push changes to github
 - See changes in the github hosted site
+- test
