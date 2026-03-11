@@ -145,6 +145,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Midterm Redesign Gold Reserves</span></a>
   </li>  
         <li>
+    <a class="dropdown-item" href="../projects/gold-reserves-code.html">
+ <span class="dropdown-text">Midterm Redesign Code Overview</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../projects/instructions.html">
  <span class="dropdown-text">new project instructions</span></a>
   </li>  
@@ -179,9 +183,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
   <ul class="collapse">
   <li><a href="#original-image-design" id="toc-original-image-design" class="nav-link" data-scroll-target="#original-image-design">Original image design</a></li>
-  <li><a href="#original-image" id="toc-original-image" class="nav-link" data-scroll-target="#original-image">Original image:</a></li>
   </ul></li>
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
   <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
   </ul>
 </nav>
@@ -230,7 +236,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>The dynamics of the global gold market is governed by not only the above-ground stock but also the geographic distribution of reserves in the ground which are yet to be extracted. According to recent estimates from the U.S. Geological Survey (USGS), the amount of proven gold reserves total on the order of tens of thousands metric tons worldwide with substantial concentrations among just a limited number of producers.</p>
 <p>In a 2025 visualization published by Visual Capitalist, nations are ranked by their un-mined gold reserves using the data from the USGS estimate in order to illuminate the perspective geography of future extraction. While the original image is visually engaging and communicates the basic ranking of nations, the design makes it difficult to extract precise quantitative comparisons. It falls short of an analytical instrument and is not sophisticated enough to provide the level of accuracy required for through analysis.</p>
-<p>In this project, we will address those limitations through systematic reconstruction of the original design using data from the 2025 USGS survey, the exact data cited in the original graphic. The report is accompanied by descriptive statistical summaries, analysis and visualizations redesigned using R using r-markdown.</p>
+<p>In this project, we will address those limitations through systematic reconstruction of the original design using data from the Mineral Commodity Summaries 2025 published by the USGS, we source the exact data cited in the original graphic.</p>
+<!-- The report is accompanied by descriptive statistical summaries, analysis and visualizations redesigned using R using r-markdown. -->
 </section>
 <section id="the-image-selection" class="level2">
 <h2 class="anchored" data-anchor-id="the-image-selection">The image selection</h2>
@@ -247,121 +254,68 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This project is a recreation of the <strong>“Unmined Reserves of Gold”</strong> info graphic (shown below) using <strong>ggplot2</strong>. The original shows estimated gold reserves by country displayed in metric tons and valued in USD determined by a gold price factor of $4,362 per troy ounce.</p>
 <section id="original-image-design" class="level3">
 <h3 class="anchored" data-anchor-id="original-image-design">Original image design</h3>
-<p>In the original image, <strong>“Ranked: Unmined Gold Reserves by Country”</strong>, the graphic presents a detailed comparison of countries’ unmined gold reserves, ranked by estimated weight. The figure reports reserves in metric tons adn also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4362 per unit.</p>
-</section>
-<section id="original-image" class="level3">
-<h3 class="anchored" data-anchor-id="original-image">Original image:</h3>
+<p>In the original image titled, <strong>“Ranked: Unmined Gold Reserves by Country”</strong>, the graphic presents a detailed comparison of countries’ unmined gold reserves, ranked by estimated weight. The figure reports reserves in metric tons and also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4,362 per unit.</p>
+<section id="original-image" class="level5">
+<h5 class="anchored" data-anchor-id="original-image">Original image:</h5>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../images/GoldDepositFooters.jpg" class="img-fluid figure-img"></p>
 <figcaption>Source image: https://elements.visualcapitalist.com/ranked-unmined-gold-reserves-by-country-2025/</figcaption>
 </figure>
 </div>
-<p>The data source from the original image references the <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf/">U.S Geological Survey Janurary 2025</a>. In the reports table of content, a section reporting gold is found on page 82 directly after germanium. On the following page, a table is displayed which includes the <a href="../data/data.csv">data</a> used for this project. I copied the data from the report and created a file named data.csv, it contains the following columns: country name, production 2023 and 2024 and total reserves.</p>
-<blockquote class="blockquote">
-<p>“World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru, Russia, and Tanzania were revised based on company and Government reports.”</p>
-</blockquote>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.2
-✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.1.0     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin by loading the data from the csv file. </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 19 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): Country
-dbl (3): Production_2023, Production_2024e, Reserves
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summarise(data)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># head(data)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </section>
+<section id="data-source" class="level4">
+<h4 class="anchored" data-anchor-id="data-source">Data source</h4>
+<p>As you can see in the original graphic, the data source references the <a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf">U.S Geological Survey Janurary 2025</a>. In the reports table of content, a section reporting gold is found on page 83 directly after germanium. On the following page, a table is displayed which includes the <a href="../data/data.csv">data</a> used for this project. I copied the data from the report and created a file named data.csv which contains the following columns for the following:<br>
+<code>country name, production for both years 2023, 2024, and total reserves</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/mine-production-85160.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Original data source usgs.gov, Mineral Commodity Summaries 2025</figcaption>
+</figure>
+</div>
+<!-- >  "World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru, -->
+<!-- Russia, and Tanzania were revised based on company and Government reports. " -->
+<!-- The text above is clearly displayed in the image, no need for duplication.  -->
+</section>
+</section>
+</section>
+<section id="observations" class="level2">
+<h2 class="anchored" data-anchor-id="observations">Observations</h2>
+<p>Some observations about the original graphic, data, likely conclusions that can be inferred.</p>
 </section>
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
 <p>The data included 19 samples of 4 measurements. As you can see, the data contains NA values we will need to remove, and also last row, “World total” which is not included in the original image.</p>
+<section id="the-data" class="level4">
+<h4 class="anchored" data-anchor-id="the-data">The Data</h4>
 <div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 19 × 4
-   Country               Production_2023 Production_2024e Reserves
-   &lt;chr&gt;                           &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt;
- 1 United States                     170              160     3000
- 2 Australia                         296              290    12000
- 3 Brazil                             71               70     2400
- 4 Burkina Faso                       57               60       NA
- 5 Canada                            198              200     3200
- 6 China                             375              380     3100
- 7 Colombia                           61               60      700
- 8 Ghana                             126              130     1000
- 9 Indonesia                         100              100     3600
-10 Kazakhstan                        133              130     2300
-11 Mali                               67               70      800
-12 Mexico                            127              130     1400
-13 Peru                              100              100     2500
-14 Russia                            313              310    12000
-15 South Africa                      104              100     5000
-16 Tanzania                           55               60      400
-17 Uzbekistan                        120              120     1800
-18 Other countries                   777              780     9200
-19 World total (rounded)            3250             3300    64000</code></pre>
+<pre><code>function (x, df1, df2, ncp, log = FALSE) 
+{
+    if (missing(ncp)) 
+        .Call(C_df, x, df1, df2, log)
+    else .Call(C_dnf, x, df1, df2, ncp, log)
+}
+&lt;bytecode: 0x15416a818&gt;
+&lt;environment: namespace:stats&gt;</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: this dose not render, need to figure out how to include images created in the CODE file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a filtered tibble removing NA and "World total...."</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>reserves <span class="ot">=</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Reserves)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>reserves</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 17 × 4
-   Country         Production_2023 Production_2024e Reserves
-   &lt;chr&gt;                     &lt;dbl&gt;            &lt;dbl&gt;    &lt;dbl&gt;
- 1 United States               170              160     3000
- 2 Australia                   296              290    12000
- 3 Brazil                       71               70     2400
- 4 Canada                      198              200     3200
- 5 China                       375              380     3100
- 6 Colombia                     61               60      700
- 7 Ghana                       126              130     1000
- 8 Indonesia                   100              100     3600
- 9 Kazakhstan                  133              130     2300
-10 Mali                         67               70      800
-11 Mexico                      127              130     1400
-12 Peru                        100              100     2500
-13 Russia                      313              310    12000
-14 South Africa                104              100     5000
-15 Tanzania                     55               60      400
-16 Uzbekistan                  120              120     1800
-17 Other countries             777              780     9200</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the ggplot image adding layers incrementally</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include sources for the original images and data below</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+</section>
+</section>
+<section id="recap" class="level2">
+<h2 class="anchored" data-anchor-id="recap">Recap</h2>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
 </section>
 <section id="source" class="level2">
 <h2 class="anchored" data-anchor-id="source">Source</h2>
 <ul>
-<li><strong>Data / concept:</strong> U.S. Geological Survey, January 2025; value of reserves at gold price $4,362/troy oz.</li>
-<li><strong>Original infographic:</strong> Visual Capitalist <a href="../images/GoldDepositFooters.jpg">reference image:</a>.</li>
+<li><strong>Data:</strong> U.S. Geological Survey, January 2025; value of reserves at gold price $4,362/troy oz.</li>
+<li><strong>Original info graphic:</strong> Visual Capitalist <a href="../images/GoldDepositFooters.jpg">reference image</a>.</li>
 </ul>
 
 

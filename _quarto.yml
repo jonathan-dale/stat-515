@@ -13,6 +13,8 @@ website:
         menu:
           - href: projects/gold-reserves.qmd
             text: Midterm Redesign Gold Reserves
+          - href: projects/gold-reserves-code.qmd
+            text: Midterm Redesign Code Overview
           - href: projects/instructions.qmd
             text: new project instructions
       - about.qmd
