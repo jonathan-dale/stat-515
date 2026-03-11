@@ -1,0 +1,127 @@
+---
+title: "Midterm Redesign Code Overview"
+format: html
+description: "An overview of the code used to generate a redesign of the gold reserves infographic by Visual Capitalist."
+---
+
+## Midterm Redesign code overview.
+This page provides a brief overview of the code used to generate the Gold Reserves mid term project.  
+We first load libraries and packages that will be needed.
+
+```{r setup}
+#| label: setup
+#| include: true
+
+library(tidyverse)
+```
+
+
+We created a csv file by copying the data found in the USGS January 2025 report on page 83. This was feed into Claude, an AI tool that has gained recent popularity which made it simple to generate a proper csv file. As you can see, the original chart includes commas as thousands separators and superscript markers in the Reserves column and elsewhere, which makes it difficult to import cleanly into a data frame with `read_csv()` in R. 
+
+![Source data taken directly from the USGS Mineral Commodity Summaries 2025](../images/mine-production-85160.jpeg)
+
+After creating the clean data.csv referenced in the original source image, the csv file loads into a data frame with no issues.  
+```{r data loading}
+#| label: data loading
+#| include: true
+#| echo: true
+
+# Begin by loading the data from the csv file. 
+df <- read_csv("../data/data.csv")
+head(df)
+```
+
+
+## Data preparation
+The data set has at least one NA values that should be removed. 
+```{r exploration}
+#| label: data exploration
+#| include: true
+#| echo: true
+
+print(df)
+
+# rank(df$Production_2023)
+# rank(df$Production_2024)
+```
+
+We can also visualize how mine production changed from 2023 to 2024 for each country.
+
+```{r change-23-24}
+#| label: change-23-24
+#| include: true
+#| echo: true
+#| fig-cap: "Change in gold mine production from 2023 to 2024 by country (metric tons)."
+
+df %>%
+  filter(!is.na(Production_2023), !is.na(Production_2024)) %>%
+  mutate(Change_23_24 = Production_2024 - Production_2023) %>%
+  ggplot(aes(x = reorder(Country, Change_23_24),
+             y = Change_23_24,
+             fill = Change_23_24 > 0)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(
+    values = c("TRUE" = "darkgreen", "FALSE" = "firebrick"),
+    name   = "Change",
+    labels = c("FALSE" = "Decrease or no change", "TRUE" = "Increase")
+  ) +
+  labs(
+    title = "Change in gold mine production, 2023 to 2024",
+    x = "Country",
+    y = "Change in mine production (metric tons)"
+  ) +
+  theme_minimal()
+```
+
+
+Comments on increasing reserves in this time frame...perhaps due to rising gold prices, expected tariffs ect.
+ 
+### Data cleaning
+Remove NA values and also the last row titled "World total".
+```{r cleaning}
+#| label: data-cleaning
+#| include: true
+#| echo: true
+
+# Create a filtered tibble removing NA and "World total...."
+reserves = df %>%
+  filter(
+    !Country == "World total (rounded)",
+    !is.na(Reserves)
+  )
+reserves
+
+
+# Print the clean data frame renamed as reserves
+print(reserves)
+
+```
+
+
+
+
+##### Redesigning the original image
+We will begin by introducing a foundation image using `ggplot2` and then incrementally adding layers to it.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
