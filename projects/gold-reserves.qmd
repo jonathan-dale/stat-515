@@ -78,3 +78,15 @@ print(df)
 
 - **Data:** U.S. Geological Survey, January 2025; value of reserves at gold price $4,362/troy oz.
 - **Original info graphic:** Visual Capitalist [reference image](../images/GoldDepositFooters.jpg).
+
+
+## Next image redesign 
+
+![Chinese-EVs-Around-the-World](../images/Chinese-EVs-Around-the-World.jpg)
+
+
+This image looks like a good candidate to include for a simplification, its a little messy.  
+[Chinas share of EV's world wide](https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/)
+
+
+
