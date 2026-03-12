@@ -39,15 +39,18 @@ This project is a recreation of the **"Unmined Reserves of Gold"** info graphic 
 In the original image titled, **"Ranked: Unmined Gold Reserves by Country"**, the graphic presents a detailed comparison of countries' unmined gold reserves, ranked by estimated weight. The figure reports reserves in metric tons and also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4,362 per unit. 
 
 ##### Original image:
-![Source image: https://elements.visualcapitalist.com/ranked-unmined-gold-reserves-by-country-2025/](../images/GoldDepositFooters.jpg)
+![Source image: https://elements.visualcapitalist.com/ranked-unmined-gold-reserves-by-country-2025/](../images/GoldDepositFooters.jpg){width=60%}
 
-TODO: figure out how make the image smaller, its taking up the entire page, more than one fold. Needs to be shorter at least.
+<!-- TODO: figure out how make the image smaller, its taking up the entire page, more than one fold. Needs to be shorter at least. -->
+
+
+
 
 #### Data source
 As you can see in the original graphic, the data source references the [U.S Geological Survey Janurary 2025](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025.pdf). In the reports table of content, a section reporting gold is found on page 83 directly after germanium. On the following page, a table is displayed which includes the [data](../data/data.csv) used for this project. I copied the data from the report and created a file named data.csv which contains the following columns for the following:  
 `country name, production for both years 2023, 2024, and total reserves`
 
-![Original data source usgs.gov, Mineral Commodity Summaries 2025](../images/mine-production-85160.jpeg)
+![Original data source usgs.gov, Mineral Commodity Summaries 2025](../images/mine-production-85160.jpeg){width=85%}
 
 <!-- >  "World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru, -->
 <!-- Russia, and Tanzania were revised based on company and Government reports. " -->
@@ -57,6 +60,17 @@ As you can see in the original graphic, the data source references the [U.S Geol
 
 ## Observations
 Some observations about the original graphic, data, likely conclusions that can be inferred.
+One can see how this would lend if coupled with other sources of related information, for example: 
+- central bank gold purchases per year (or change year over year)
+- gold reserves held by country
+
+
+
+### The data
+Errors found in the data: Indonesia reports reserves of 3.6K however the image displays 3.8K.  
+Also note that the original info graphic includes data for a single year however the data we pulled from the source, Mineral Commodity Summaries 2025, includes production for years 2023-24 as well as the reserves. 
+
+
 
 
 ## Data preparation
@@ -64,14 +78,9 @@ The data included 19 samples of 4 measurements. As you can see, the data contain
 
 #### The Data
 
-```{r}
-print(df)
-
-# TODO: this dose not render, need to figure out how to include images created in the CODE file
-```
-
 
 ## Recap
+
 
 ## Conclusion
 
@@ -84,10 +93,9 @@ print(df)
 
 ## Next image redesign 
 
-![Chinese-EVs-Around-the-World](../images/Chinese-EVs-Around-the-World.jpg)
+<!-- ![Chinese-EVs-Around-the-World](../images/Chinese-EVs-Around-the-World.jpg) -->
 
-
-This image looks like a good candidate to include for a simplification, its a little messy.  
+This image looks like a good candidate to include for a simplification, its a little messy.
 [Chinas share of EV's world wide](https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/)
 
 

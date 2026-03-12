@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -184,7 +149,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#original-image-design" id="toc-original-image-design" class="nav-link" data-scroll-target="#original-image-design">Original image design</a></li>
   </ul></li>
-  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a></li>
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations">Observations</a>
+  <ul class="collapse">
+  <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
+  </ul></li>
   <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
@@ -260,11 +228,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h5 class="anchored" data-anchor-id="original-image">Original image:</h5>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/GoldDepositFooters.jpg" class="img-fluid figure-img"></p>
+<p><img src="../images/GoldDepositFooters.jpg" class="img-fluid figure-img" style="width:60.0%"></p>
 <figcaption>Source image: https://elements.visualcapitalist.com/ranked-unmined-gold-reserves-by-country-2025/</figcaption>
 </figure>
 </div>
-<p>TODO: figure out how make the image smaller, its taking up the entire page, more than one fold. Needs to be shorter at least.</p>
+<!-- TODO: figure out how make the image smaller, its taking up the entire page, more than one fold. Needs to be shorter at least. -->
 </section>
 <section id="data-source" class="level4">
 <h4 class="anchored" data-anchor-id="data-source">Data source</h4>
@@ -272,7 +240,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <code>country name, production for both years 2023, 2024, and total reserves</code></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="../images/mine-production-85160.jpeg" class="img-fluid figure-img"></p>
+<p><img src="../images/mine-production-85160.jpeg" class="img-fluid figure-img" style="width:85.0%"></p>
 <figcaption>Original data source usgs.gov, Mineral Commodity Summaries 2025</figcaption>
 </figure>
 </div>
@@ -284,27 +252,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="observations" class="level2">
 <h2 class="anchored" data-anchor-id="observations">Observations</h2>
-<p>Some observations about the original graphic, data, likely conclusions that can be inferred.</p>
+<p>Some observations about the original graphic, data, likely conclusions that can be inferred. One can see how this would lend if coupled with other sources of related information, for example: - central bank gold purchases per year (or change year over year) - gold reserves held by country</p>
+<section id="the-data" class="level3">
+<h3 class="anchored" data-anchor-id="the-data">The data</h3>
+<p>Errors found in the data: Indonesia reports reserves of 3.6K however the image displays 3.8K.<br>
+Also note that the original info graphic includes data for a single year however the data we pulled from the source, Mineral Commodity Summaries 2025, includes production for years 2023-24 as well as the reserves.</p>
+</section>
 </section>
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
 <p>The data included 19 samples of 4 measurements. As you can see, the data contains NA values we will need to remove, and also last row, “World total” which is not included in the original image.</p>
-<section id="the-data" class="level4">
-<h4 class="anchored" data-anchor-id="the-data">The Data</h4>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>function (x, df1, df2, ncp, log = FALSE) 
-{
-    if (missing(ncp)) 
-        .Call(C_df, x, df1, df2, log)
-    else .Call(C_dnf, x, df1, df2, ncp, log)
-}
-&lt;bytecode: 0x124440858&gt;
-&lt;environment: namespace:stats&gt;</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: this dose not render, need to figure out how to include images created in the CODE file</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
+<section id="the-data-1" class="level4">
+<h4 class="anchored" data-anchor-id="the-data-1">The Data</h4>
 </section>
 </section>
 <section id="recap" class="level2">
@@ -322,14 +281,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="next-image-redesign" class="level2">
 <h2 class="anchored" data-anchor-id="next-image-redesign">Next image redesign</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../images/Chinese-EVs-Around-the-World.jpg" class="img-fluid figure-img"></p>
-<figcaption>Chinese-EVs-Around-the-World</figcaption>
-</figure>
-</div>
-<p>This image looks like a good candidate to include for a simplification, its a little messy.<br>
-<a href="https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/">Chinas share of EV’s world wide</a></p>
+<!-- ![Chinese-EVs-Around-the-World](../images/Chinese-EVs-Around-the-World.jpg) -->
+<p>This image looks like a good candidate to include for a simplification, its a little messy. <a href="https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/">Chinas share of EV’s world wide</a></p>
 
 
 </section>

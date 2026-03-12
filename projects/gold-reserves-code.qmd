@@ -26,10 +26,22 @@ After creating the clean data.csv referenced in the original source image, the c
 #| include: true
 #| echo: true
 
+# Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.) use coord_flip() for horizontal versions.
+
 # Begin by loading the data from the csv file. 
 df <- read_csv("../data/data.csv")
-head(df)
+# head(df)   # Not as useful as the glimpse() function below...
+
+# This will give you the column names and types so you know what to plot.
+glimpse(df)
+
 ```
+
+Analysis of the data shows that we have at least one NA value that should be removed; it also contains a mix of categorical values (Countries) and a few numeric measures. This leads well to bar-like ranking and change over time charts.
+Lets try to create a single year reserve chart using either bar
+
+
+
 
 
 ## Data preparation
@@ -41,10 +53,90 @@ The data set has at least one NA values that should be removed.
 
 print(df)
 
-# rank(df$Production_2023)
-# rank(df$Production_2024)
 ```
 
+
+
+
+Creating some basic histograms using the data frame. 
+
+```{r basic histogram}
+#| label: basic_histogram
+#| include: true
+#| echo: true
+
+
+# Histogram
+ggplot(df, aes(x = Reserves)) +
+  geom_histogram(binwidth = 5, color = "salmon", fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Reserves Distribution",
+    x = "Country",
+    y = "Reserves"
+  ) +
+  theme_dark()
+
+
+# Histogram
+df %>% 
+  mutate(!is.na(Reserves)) %>%
+  filter(!Country == "World total (rounded)") %>%
+  ggplot(aes(x = Reserves, fill = Reserves)) +
+    geom_histogram(bins = 40, color = "white", fill = "steelblue") +
+    labs(
+      title = "Reserves distribution",
+      x = "Country",
+      y = "Reserves"
+    ) +
+    theme_minimal()
+
+
+## Bar chart
+
+ggplot(df, aes(x = Country)) + 
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "Bar chart",
+    x = "Country",
+    y = "Count"
+  ) +
+  theme_dark()
+
+
+```
+
+
+
+
+Comments on increasing reserves in this time frame...perhaps due to rising gold prices, expected tariffs ect.
+ 
+### Data cleaning
+Remove NA values and also the last row titled "World total".
+```{r cleaning}
+#| label: data-cleaning
+#| include: true
+#| echo: true
+
+# Create a filtered tibble removing NA and "World total...."
+df_clean = df %>%
+  filter(
+    !Country == "World total (rounded)",
+    !is.na(Reserves)
+  )
+df_clean
+
+
+# Print the clean data frame renamed as reserves
+# print(df_clean)
+glimpse(df_clean)
+
+```
+
+
+
+
+## Looking for trends
 We can also visualize how mine production changed from 2023 to 2024 for each country.
 
 ```{r change-23-24}
@@ -52,6 +144,11 @@ We can also visualize how mine production changed from 2023 to 2024 for each cou
 #| include: true
 #| echo: true
 #| fig-cap: "Change in gold mine production from 2023 to 2024 by country (metric tons)."
+
+
+# Mutate the original data frame with out reassigning it, simply pass the mutated object directly into the ggplot.
+# begin with original data, filter 'na' values, create new column "Change_23_24"
+# Create vertical histogram by using coord_flip, 
 
 df %>%
   filter(!is.na(Production_2023), !is.na(Production_2024)) %>%
@@ -74,40 +171,53 @@ df %>%
   theme_minimal()
 ```
 
+That looks good, however, the extreme value "World total (rounded)" is throwing off the scale. We should remove this outlier.
 
-Comments on increasing reserves in this time frame...perhaps due to rising gold prices, expected tariffs ect.
- 
-### Data cleaning
-Remove NA values and also the last row titled "World total".
-```{r cleaning}
-#| label: data-cleaning
+
+
+## Remove outliers
+After removing the World Total, the image is much easier to see trends.
+```{r}
+#| label: change-23-24-remove-outliers
 #| include: true
 #| echo: true
+#| fig-cap: "Change in gold mine production from 2023 to 2024 by country (metric tons)."
 
-# Create a filtered tibble removing NA and "World total...."
-reserves = df %>%
+# Mutate the original data frame with out reassigning it, simply pass the mutated object directly into the ggplot.
+# begin with original data, filter 'na' values, create new column "Change_23_24"
+# Create vertical histogram by using coord_flip, 
+
+df %>%
+  filter(!is.na(Production_2023), !is.na(Production_2024)) %>%
+  mutate(Change_23_24 = Production_2024 - Production_2023) %>%
   filter(
     !Country == "World total (rounded)",
     !is.na(Reserves)
-  )
-reserves
-
-
-# Print the clean data frame renamed as reserves
-print(reserves)
-
+  ) %>%
+  ggplot(aes(x = reorder(Country, Change_23_24),
+             y = Change_23_24,
+             fill = Change_23_24 > 0)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(
+    values = c("TRUE" = "darkgreen", "FALSE" = "firebrick"),
+    name   = "Change",
+    labels = c("FALSE" = "Decrease or no change", "TRUE" = "Increase")
+  ) +
+  labs(
+    title = "Change in gold mine production, 2023 to 2024",
+    x = "Country",
+    y = "Change in mine production (metric tons)"
+  ) +
+  theme_minimal()
 ```
-
 
 
 
 ##### Redesigning the original image
 We will begin by introducing a foundation image using `ggplot2` and then incrementally adding layers to it.
-
-
-
-
-
+Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.)
+ use coord_flip() for horizontal versions.
 
 
 
