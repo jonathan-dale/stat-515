@@ -6,10 +6,10 @@ description: "An overview of the code used to generate a redesign of the gold re
 
 ### Video link to the code overview
 The link to the code overview is below, also an embedded video added for convenience.  
-[Mid Project Youtube Link](https://www.youtube.com/watch?v=wo9vZccmqwc)
+[Mid Project Youtube Link](https://www.youtube.com/watch?v=vorvYnRlsmo)
 
 #### Mid project youtube embedded video
-{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+{{< video https://www.youtube.com/watch?v=vorvYnRlsmo >}}
 
 > How to add embedded videos: https://quarto.org/docs/authoring/markdown-basics.html#videos
 
@@ -91,6 +91,7 @@ df_clean
 # Print the clean data frame renamed as reserves
 # print(df_clean)
 glimpse(df_clean)
+colSums(is.na(df_clean))
 ```
 
 
