@@ -146,6 +146,8 @@ df %>%
     theme_minimal()
 
 
+## As you can see, the country name in the x axis is not easy to see, this can be adjusted by using a coord_flip().
+
 
 #  Pipe the data frame directly into ggplot function after mutating to plot
 df %>%
@@ -163,7 +165,8 @@ df %>%
 
 ```
 
-As you can see, the country name in the x axis is not easy to see, this can be adjusted by using a coord_flip().
+This chart looks promising however if you look close, you can spot one small issue. The data set used to generate the plot includes all values except those with name matching the string "World total (rounded)". In this case we included a country with a null value in the "Reserves" column, "Burkina Faso". A good way to address this issue, among many, is to use the clean data frame that was created in the first section. Recall the filter `!is.na(Reserves)` on the "Data inspection and cleaning" section above removed any NA values from the Reserves column. 
+This clean data frame will be used in the following section to prevent confusion. 
 
 
 
@@ -179,7 +182,11 @@ Create the final redesign image using ggplot
 
 ## Redesign the original image
 
-# Begin with the clean data frame 'df_clean', plot reserves by country, sorting countries by their reserve values and coloring bars by the same reserve values. Use the viridis scale for color based on Reserves.
+# Begin with the clean data frame 'df_clean'
+# Plot reserves by country 
+# Sort countries by their reserve values
+# Color bars by the same reserve values.
+# Use the 'viridis' scale for color based on Reserves.
 
 df_clean %>%
   ggplot(aes(x = reorder(Country, Reserves), y = Reserves, fill = Reserves)) +
