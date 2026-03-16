@@ -1,0 +1,36 @@
+---
+title: "Mid project image selection"
+date: 2026-03-16
+format: html
+description: "A selection of the gold reserves infographic by Visual Capitalist."
+authors:
+  - "Jonathan Dale"
+---
+
+
+##### Image choice
+
+> The image selection for this image redesign project was harder than expected. With every visit to [Elements](https://elements.visualcapitalist.com/) I found so many good images, a few of the candidates are displayed below.
+
+
+::: {layout-nrow=2}
+[![Chinas share of EV's world wide](../images/Chinese-EVs-Around-the-World.jpg){width=35%}](https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/)
+
+[![Central Bank Gold Reserves](../images/goldreserves-web.jpg){width=40%}](https://elements.visualcapitalist.com/mapped-which-countries-hold-the-most-gold/)
+
+[![The Size of the Oil Market](../images/The-Size-of-the-Oil-Market-vs-Top-10-Metal-Markets-Infographicjpg.jpg){width=40%}](https://elements.visualcapitalist.com/sizing-up-the-oil-market-vs-top-10-metal-markets-combined/)
+
+[![Natural Resource Value Per Capita](../images/NaturalResourceValue-web.webp){width=40%}](https://elements.visualcapitalist.com/the-worlds-top-resource-giants-ranked-by-wealth-per-capita/)
+::: 
+
+
+[Source: linked-figures (quarto docs)](https://quarto.org/docs/authoring/figures.html#linked-figures)  
+[Source: figure-panels (quarto docs)](https://quarto.org/docs/authoring/figures.html#figure-panels)  
+<!-- [![Elephant](elephant.png)](https://en.wikipedia.org/wiki/Elephant) -->
+
+
+
+  <!-- - [Chinas share of EV's world wide](https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/)
+  - [Central Bank Gold Reserves](https://elements.visualcapitalist.com/mapped-which-countries-hold-the-most-gold/)
+  - [The Size of the Oil Market](https://elements.visualcapitalist.com/sizing-up-the-oil-market-vs-top-10-metal-markets-combined/)
+  - [Natural Resource Value Per Capita](https://elements.visualcapitalist.com/the-worlds-top-resource-giants-ranked-by-wealth-per-capita/) -->

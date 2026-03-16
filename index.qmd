@@ -19,8 +19,13 @@ about:
 
 ---
 
-Welcome to STAT-515! This site contains course materials, projects, and statistical analyses. The Midterm project includes identifying an existign visualization from the web or another published source and creating several redesigned versions of that same visualization. The goal is to offer critique and improve an existing visual with several redesign images.
+### Welcome to STAT-515!
 
+This course dives into the art and science of understanding data, its all about exploring how data tells a story. Importantly how a good visual can make that story more clear, sharper, and more impact. Through the semester, we dive into hands on modeling bringing data to life with R to find and uncover the patterns hidden in complex data sets.
+
+The [midterm project](projects/gold-reserves.qmd) is a creative challenge blending design with statistical insight. It focuses on redesigning data visualizations using ggplot2 in R, a critical component of the course that will guide us through practical analysis and visualization. 
+
+Later in the course the modeling and visualization skills come together in the [final-project](projects/final.qmd) where real-world data is used to build predictive models while crafting intuitive visuals that make the results memorable. 
 
 <!-- ## Quick Navigation
 

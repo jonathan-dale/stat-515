@@ -117,8 +117,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../logo.png" alt="" class="navbar-logo light-content">
-    <img src="../logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">STAT-515 Projects</span>
@@ -146,6 +144,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li>
     <a class="dropdown-item" href="../projects/gold-reserves-code.html">
  <span class="dropdown-text">Midterm Redesign Code Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/image-selection.html">
+ <span class="dropdown-text">Mit Project Image Selection</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../projects/instructions.html">
@@ -177,13 +179,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#midterm-redesign-code-overview." id="toc-midterm-redesign-code-overview." class="nav-link active" data-scroll-target="#midterm-redesign-code-overview.">Midterm Redesign code overview.</a></li>
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a>
+  <li><a href="#video-link-to-the-code-overview" id="toc-video-link-to-the-code-overview" class="nav-link active" data-scroll-target="#video-link-to-the-code-overview">Video link to the code overview</a></li>
+  <li><a href="#midterm-redesign-code-overview." id="toc-midterm-redesign-code-overview." class="nav-link" data-scroll-target="#midterm-redesign-code-overview.">Midterm Redesign code overview.</a></li>
+  <li><a href="#load-data" id="toc-load-data" class="nav-link" data-scroll-target="#load-data">Load data</a></li>
+  <li><a href="#data-inspection-and-cleaning" id="toc-data-inspection-and-cleaning" class="nav-link" data-scroll-target="#data-inspection-and-cleaning">Data inspection and cleaning</a></li>
+  <li><a href="#redesigning-the-original-image" id="toc-redesigning-the-original-image" class="nav-link" data-scroll-target="#redesigning-the-original-image">Redesigning the original image</a>
   <ul class="collapse">
-  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data cleaning</a></li>
+  <li><a href="#final-redesign" id="toc-final-redesign" class="nav-link" data-scroll-target="#final-redesign">Final redesign</a></li>
   </ul></li>
-  <li><a href="#looking-for-trends" id="toc-looking-for-trends" class="nav-link" data-scroll-target="#looking-for-trends">Looking for trends</a></li>
-  <li><a href="#remove-outliers" id="toc-remove-outliers" class="nav-link" data-scroll-target="#remove-outliers">Remove outliers</a></li>
+  <li><a href="#looking-for-trends-in-the-data" id="toc-looking-for-trends-in-the-data" class="nav-link" data-scroll-target="#looking-for-trends-in-the-data">Looking for trends in the data</a></li>
+  <li><a href="#using-map-layers-to-visualize-locations" id="toc-using-map-layers-to-visualize-locations" class="nav-link" data-scroll-target="#using-map-layers-to-visualize-locations">Using map layers to visualize locations</a></li>
   </ul>
 </nav>
     </div>
@@ -214,6 +219,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<section id="video-link-to-the-code-overview" class="level3">
+<h3 class="anchored" data-anchor-id="video-link-to-the-code-overview">Video link to the code overview</h3>
+<p>The link to the code overview is below, also an embedded video added for convenience.<br>
+<a href="https://www.youtube.com/watch?v=wo9vZccmqwc">Mid Project Youtube Link</a></p>
+<section id="mid-project-youtube-embedded-video" class="level4">
+<h4 class="anchored" data-anchor-id="mid-project-youtube-embedded-video">Mid project youtube embedded video</h4>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/wo9vZccmqwc" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<blockquote class="blockquote">
+<p>How to add embedded videos: https://quarto.org/docs/authoring/markdown-basics.html#videos</p>
+</blockquote>
+</section>
+</section>
 <section id="midterm-redesign-code-overview." class="level2">
 <h2 class="anchored" data-anchor-id="midterm-redesign-code-overview.">Midterm Redesign code overview.</h2>
 <p>This page provides a brief overview of the code used to generate the Gold Reserves mid term project.<br>
@@ -232,20 +249,54 @@ We first load libraries and packages that will be needed.</p>
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dbplyr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dbplyr'
+
+The following objects are masked from 'package:dplyr':
+
+    ident, sql</code></pre>
 </div>
-<p>We created a csv file by copying the data found in the USGS January 2025 report on page 83. This was feed into Claude, an AI tool that has gained recent popularity which made it simple to generate a proper csv file. As you can see, the original chart includes commas as thousands separators and superscript markers in the Reserves column and elsewhere, which makes it difficult to import cleanly into a data frame with <code>read_csv()</code> in R.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'scales'
+
+The following object is masked from 'package:purrr':
+
+    discard
+
+The following object is masked from 'package:readr':
+
+    col_factor</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maps)   <span class="co"># for map_data()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'maps'
+
+The following object is masked from 'package:purrr':
+
+    map</code></pre>
+</div>
+</div>
+<p>I created a csv file by copying the data found in the USGS January 2025 report on page 83 to my clipboard. As you can see in the image below, the original chart includes commas as thousands separators and superscript markers in the Reserves column and elsewhere. This makes it difficult to import cleanly into a data frame with <code>read_csv()</code> in R. To obtain a clean csv file used to load the data into R, I used Claude to generate a proper csv file used in all fo the rest of this report.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../images/mine-production-85160.jpeg" class="img-fluid figure-img"></p>
 <figcaption>Source data taken directly from the USGS Mineral Commodity Summaries 2025</figcaption>
 </figure>
 </div>
-<p>After creating the clean data.csv referenced in the original source image, the csv file loads into a data frame with no issues.</p>
+</section>
+<section id="load-data" class="level2">
+<h2 class="anchored" data-anchor-id="load-data">Load data</h2>
+<p>After creating the proper data.csv file with the data referenced in the original source image, the csv file loads into a data frame with no issues.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.) use coord_flip() for horizontal versions.</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin by loading the data from the csv file. </span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.) use coord_flip() for horizontal versions.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin by loading the data from the csv file. </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/data.csv"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 19 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
@@ -256,10 +307,10 @@ dbl (3): Production_2023, Production_2024, Reserves
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(df)   # Not as useful as the glimpse() function below...</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This will give you the column names and types so you know what to plot.</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># head(df)   # Not as useful as the glimpse() function below...</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># This will give you the column names and types so you know what to plot.</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 19
 Columns: 4
@@ -271,175 +322,237 @@ $ Reserves        &lt;dbl&gt; 3000, 12000, 2400, NA, 3200, 3100, 700, 1000, 3600
 </div>
 <p>Analysis of the data shows that we have at least one NA value that should be removed; it also contains a mix of categorical values (Countries) and a few numeric measures. This leads well to bar-like ranking and change over time charts. Lets try to create a single year reserve chart using either bar</p>
 </section>
-<section id="data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
-<p>The data set has at least one NA values that should be removed.</p>
+<section id="data-inspection-and-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="data-inspection-and-cleaning">Data inspection and cleaning</h2>
+<p>The data set has at least one NA values that should be removed, also remove NA values and also the last row titled “World total”.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count the total number of missing values</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>na_val <span class="ot">=</span> <span class="fu">sum</span>(<span class="fu">is.na</span>(df))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Number of missing data (n/a): "</span>, na_val, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 19 × 4
-   Country               Production_2023 Production_2024 Reserves
-   &lt;chr&gt;                           &lt;dbl&gt;           &lt;dbl&gt;    &lt;dbl&gt;
- 1 United States                     170             160     3000
- 2 Australia                         296             290    12000
- 3 Brazil                             71              70     2400
- 4 Burkina Faso                       57              60       NA
- 5 Canada                            198             200     3200
- 6 China                             375             380     3100
- 7 Colombia                           61              60      700
- 8 Ghana                             126             130     1000
- 9 Indonesia                         100             100     3600
-10 Kazakhstan                        133             130     2300
-11 Mali                               67              70      800
-12 Mexico                            127             130     1400
-13 Peru                              100             100     2500
-14 Russia                            313             310    12000
-15 South Africa                      104             100     5000
-16 Tanzania                           55              60      400
-17 Uzbekistan                        120             120     1800
-18 Other countries                   777             780     9200
-19 World total (rounded)            3250            3300    64000</code></pre>
+<pre><code>Number of missing data (n/a):  1 </code></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count missing values in each column</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"A summary of missing data below:"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A summary of missing data below: </code></pre>
 </div>
-<p>Creating some basic histograms using the data frame.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Reserves)) <span class="sc">+</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"salmon"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Reserves Distribution"</span>,</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country"</span>,</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Reserves"</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
-(`stat_bin()`).</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(df))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        Country Production_2023 Production_2024        Reserves 
+              0               0               0               1 </code></pre>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gold-reserves-code_files/figure-html/basic_histogram-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="sc">!</span><span class="fu">is.na</span>(Reserves)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Reserves, <span class="at">fill =</span> Reserves)) <span class="sc">+</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">40</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Reserves distribution"</span>,</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Country"</span>,</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Reserves"</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
-(`stat_bin()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gold-reserves-code_files/figure-html/basic_histogram-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Bar chart</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Country)) <span class="sc">+</span> </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Bar chart"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Count"</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dark</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gold-reserves-code_files/figure-html/basic_histogram-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Comments on increasing reserves in this time frame…perhaps due to rising gold prices, expected tariffs ect.</p>
-<section id="data-cleaning" class="level3">
-<h3 class="anchored" data-anchor-id="data-cleaning">Data cleaning</h3>
-<p>Remove NA values and also the last row titled “World total”.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a filtered tibble removing NA and "World total...."</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">=</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>,</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Reserves)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>df_clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get a summary of the data including NA counts</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># summary(df)</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a filtered tibble removing NA and "World total...."</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Also arrange by descending order</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">=</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Reserves)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Reserves))</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>df_clean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 17 × 4
    Country         Production_2023 Production_2024 Reserves
    &lt;chr&gt;                     &lt;dbl&gt;           &lt;dbl&gt;    &lt;dbl&gt;
- 1 United States               170             160     3000
- 2 Australia                   296             290    12000
- 3 Brazil                       71              70     2400
- 4 Canada                      198             200     3200
- 5 China                       375             380     3100
- 6 Colombia                     61              60      700
- 7 Ghana                       126             130     1000
- 8 Indonesia                   100             100     3600
- 9 Kazakhstan                  133             130     2300
-10 Mali                         67              70      800
-11 Mexico                      127             130     1400
-12 Peru                        100             100     2500
-13 Russia                      313             310    12000
-14 South Africa                104             100     5000
-15 Tanzania                     55              60      400
-16 Uzbekistan                  120             120     1800
-17 Other countries             777             780     9200</code></pre>
+ 1 Australia                   296             290    12000
+ 2 Russia                      313             310    12000
+ 3 Other countries             777             780     9200
+ 4 South Africa                104             100     5000
+ 5 Indonesia                   100             100     3600
+ 6 Canada                      198             200     3200
+ 7 China                       375             380     3100
+ 8 United States               170             160     3000
+ 9 Peru                        100             100     2500
+10 Brazil                       71              70     2400
+11 Kazakhstan                  133             130     2300
+12 Uzbekistan                  120             120     1800
+13 Mexico                      127             130     1400
+14 Ghana                       126             130     1000
+15 Mali                         67              70      800
+16 Colombia                     61              60      700
+17 Tanzania                     55              60      400</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the clean data frame renamed as reserves</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df_clean)</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the clean data frame renamed as reserves</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df_clean)</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df_clean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 17
 Columns: 4
-$ Country         &lt;chr&gt; "United States", "Australia", "Brazil", "Canada", "Chi…
-$ Production_2023 &lt;dbl&gt; 170, 296, 71, 198, 375, 61, 126, 100, 133, 67, 127, 10…
-$ Production_2024 &lt;dbl&gt; 160, 290, 70, 200, 380, 60, 130, 100, 130, 70, 130, 10…
-$ Reserves        &lt;dbl&gt; 3000, 12000, 2400, 3200, 3100, 700, 1000, 3600, 2300, …</code></pre>
+$ Country         &lt;chr&gt; "Australia", "Russia", "Other countries", "South Afric…
+$ Production_2023 &lt;dbl&gt; 296, 313, 777, 104, 100, 198, 375, 170, 100, 71, 133, …
+$ Production_2024 &lt;dbl&gt; 290, 310, 780, 100, 100, 200, 380, 160, 100, 70, 130, …
+$ Reserves        &lt;dbl&gt; 12000, 12000, 9200, 5000, 3600, 3200, 3100, 3000, 2500…</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="looking-for-trends" class="level2">
-<h2 class="anchored" data-anchor-id="looking-for-trends">Looking for trends</h2>
-<p>We can also visualize how mine production changed from 2023 to 2024 for each country.</p>
+<section id="redesigning-the-original-image" class="level2">
+<h2 class="anchored" data-anchor-id="redesigning-the-original-image">Redesigning the original image</h2>
+<p>Redesigning the original image will be done using <code>ggplot2</code> with a base layer of the clean data frame and then incrementally adding layers to it. &gt; Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.) use coord_flip() for horizontal versions.</p>
+<p>Creating some basic plots using the data frame.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutate the original data frame with out reassigning it, simply pass the mutated object directly into the ggplot.</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># begin with original data, filter 'na' values, create new column "Change_23_24"</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vertical histogram by using coord_flip, </span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Production_2023), <span class="sc">!</span><span class="fu">is.na</span>(Production_2024)) <span class="sc">%&gt;%</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Change_23_24 =</span> Production_2024 <span class="sc">-</span> Production_2023) <span class="sc">%&gt;%</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country, Change_23_24),</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> Change_23_24,</span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Change_23_24 <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"firebrick"</span>),</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">name   =</span> <span class="st">"Change"</span>,</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"Decrease or no change"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"Increase"</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Change in gold mine production, 2023 to 2024"</span>,</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country"</span>,</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Change in mine production (metric tons)"</span></span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple plot 1</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_clean, <span class="fu">aes</span>(<span class="at">x =</span> Reserves, <span class="at">y =</span> Country)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bin_2d</span>() <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Simple plot"</span>,</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Country"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Reserves"</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin2d()` using `bins = 30`. Pick better value `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gold-reserves-code_files/figure-html/basic_plots-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Simple plot 2</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_clean, <span class="fu">aes</span>(Reserves, Country)) <span class="sc">+</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_count</span>() <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Simple plot"</span>,</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Country"</span>,</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Reserves"</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gold-reserves-code_files/figure-html/basic_plots-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">################################################################################</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  Pipe the data frame directly into ggplot function after mutating to plot</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="sc">!</span><span class="fu">is.na</span>(Reserves)) <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country, Reserves), <span class="at">y =</span> Reserves, <span class="at">fill =</span> Reserves)) <span class="sc">+</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Reserves distribution"</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Country"</span>,</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Reserves"</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gold-reserves-code_files/figure-html/basic_plots-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#  Pipe the data frame directly into ggplot function after mutating to plot</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="sc">!</span><span class="fu">is.na</span>(Reserves)) <span class="sc">%&gt;%</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country, Reserves), <span class="at">y =</span> Reserves, <span class="at">fill =</span> Reserves)) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Reserves distribution"</span>,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Country"</span>,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Reserves"</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing missing values or values outside the scale range
+(`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gold-reserves-code_files/figure-html/basic_plots-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As you can see, the country name in the x axis is not easy to see, this can be adjusted by using a coord_flip().</p>
+<section id="final-redesign" class="level3">
+<h3 class="anchored" data-anchor-id="final-redesign">Final redesign</h3>
+<p>Create the final redesign image using ggplot</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Redesign the original image</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Begin with the clean data frame 'df_clean', plot reserves by country, sorting countries by their reserve values and coloring bars by the same reserve values. Use the viridis scale for color based on Reserves.</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>df_clean <span class="sc">%&gt;%</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country, Reserves), <span class="at">y =</span> Reserves, <span class="at">fill =</span> Reserves)) <span class="sc">+</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(df_clean<span class="sc">$</span>Reserves)),</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.05</span>,</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">3.2</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"gray20"</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">type =</span> <span class="st">"viridis"</span>, <span class="at">name =</span> <span class="st">"Reserves"</span>) <span class="sc">+</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> comma, <span class="at">expand =</span> <span class="fu">expansion</span>(<span class="at">mult =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.10</span>))) <span class="sc">+</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Unmined Reserves of Gold"</span>,</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Deposits that could be economically extracted or produced."</span>,</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Reserves (metric tons)"</span></span>
+<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="gold-reserves-code_files/figure-html/Final redesign-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Deposits that could be economically extracted or produced by country (metric tons).</figcaption>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"final.png"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Saving 7 x 5 in image</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave("final_plot.png", width = 5, height = 5)</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Saves last plot as 5’ x 5’ file named "plot.png" in working directory.</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co"># https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>This image uses the Viridis color palette, which is perceptually uniform and suitable for colorblind viewers. <!--source: https://www.r-bloggers.com/2023/11/colour-gradient-scale-with-scale_fill_gradientn-in-r/--></p>
+</section>
+</section>
+<section id="looking-for-trends-in-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="looking-for-trends-in-the-data">Looking for trends in the data</h2>
+<p>Visualize how mine production changed from 2023 to 2024 for each country. The extreme value “World total (rounded)” throws off the scale. This extreme value has been removed in the second image by starting with the clean data set.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutate the original data frame with out reassigning it, create new column "Change_23_24"</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Pass the mutated object directly into the ggplot.</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vertical histogram by using coord_flip</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Production_2023), <span class="sc">!</span><span class="fu">is.na</span>(Production_2024)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Change_23_24 =</span> Production_2024 <span class="sc">-</span> Production_2023) <span class="sc">%&gt;%</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country, Change_23_24),</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> Change_23_24,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Change_23_24 <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"firebrick"</span>),</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">name   =</span> <span class="st">"Change"</span>,</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"Decrease or no change"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"Increase"</span>)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Change in gold mine production, 2023 to 2024"</span>,</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Original data set"</span>,</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country"</span>,</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Change in mine production (metric tons)"</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -448,55 +561,57 @@ $ Reserves        &lt;dbl&gt; 3000, 12000, 2400, 3200, 3100, 700, 1000, 3600, 23
 </figure>
 </div>
 </div>
-</div>
-<p>That looks good, however, the extreme value “World total (rounded)” is throwing off the scale. We should remove this outlier.</p>
-</section>
-<section id="remove-outliers" class="level2">
-<h2 class="anchored" data-anchor-id="remove-outliers">Remove outliers</h2>
-<p>After removing the World Total, the image is much easier to see trends.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mutate the original data frame with out reassigning it, simply pass the mutated object directly into the ggplot.</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># begin with original data, filter 'na' values, create new column "Change_23_24"</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create vertical histogram by using coord_flip, </span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Production_2023), <span class="sc">!</span><span class="fu">is.na</span>(Production_2024)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Change_23_24 =</span> Production_2024 <span class="sc">-</span> Production_2023) <span class="sc">%&gt;%</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span>Country <span class="sc">==</span> <span class="st">"World total (rounded)"</span>,</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">is.na</span>(Reserves)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country, Change_23_24),</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> Change_23_24,</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Change_23_24 <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"firebrick"</span>),</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">name   =</span> <span class="st">"Change"</span>,</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"Decrease or no change"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"Increase"</span>)</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Change in gold mine production, 2023 to 2024"</span>,</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country"</span>,</span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Change in mine production (metric tons)"</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Removing the World Total by using the clean data frame (df_clean), now the trends are much easier to see in the image.</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the same code as above except starting with the clean data set</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>df_clean <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Change_23_24 =</span> Production_2024 <span class="sc">-</span> Production_2023) <span class="sc">%&gt;%</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Country, Change_23_24),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> Change_23_24,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Change_23_24 <span class="sc">&gt;</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">values =</span> <span class="fu">c</span>(<span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"darkgreen"</span>, <span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"firebrick"</span>),</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">name   =</span> <span class="st">"Change"</span>,</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"Decrease or no change"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"Increase"</span>)</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Change in gold mine production, 2023 to 2024"</span>,</span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Outliers removed, clean data set"</span>,</span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Country"</span>,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Change in mine production (metric tons)"</span></span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="gold-reserves-code_files/figure-html/change-23-24-remove-outliers-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="gold-reserves-code_files/figure-html/change-23-24-2.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Change in gold mine production from 2023 to 2024 by country (metric tons).</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="redesigning-the-original-image" class="level5">
-<h5 class="anchored" data-anchor-id="redesigning-the-original-image">Redesigning the original image</h5>
-<p>We will begin by introducing a foundation image using <code>ggplot2</code> and then incrementally adding layers to it. Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.) use coord_flip() for horizontal versions.</p>
-
-
 </section>
+<section id="using-map-layers-to-visualize-locations" class="level2">
+<h2 class="anchored" data-anchor-id="using-map-layers-to-visualize-locations">Using map layers to visualize locations</h2>
+<p>Lets try to use map layers discussed in the class to visualize a location on the globe instead of a simple flag as seen in the original image.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>world_tbl <span class="ot">=</span> <span class="fu">map_data</span>(<span class="st">"world"</span>) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(world_tbl)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 99,338
+Columns: 6
+$ long      &lt;dbl&gt; -69.89912, -69.89571, -69.94219, -70.00415, -70.06612, -70.0…
+$ lat       &lt;dbl&gt; 12.45200, 12.42300, 12.43853, 12.50049, 12.54697, 12.59707, …
+$ group     &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
+$ order     &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 1…
+$ region    &lt;chr&gt; "Aruba", "Aruba", "Aruba", "Aruba", "Aruba", "Aruba", "Aruba…
+$ subregion &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Notice the region value is not the same as our data set "Region"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
 </section>
 
 </main> <!-- /main -->

@@ -6,7 +6,8 @@ about:
     id: hero-heading
     template: trestles
     image-width: 100%
-    image: "https://avatars.githubusercontent.com/u/47530196?v=4&size=250"
+    # image: "https://avatars.githubusercontent.com/u/47530196?v=4&size=250"
+    image: "images/Pro-Pic-8-9-21.jpg"
 
 ---
 
@@ -21,8 +22,11 @@ about:
 
  My research interests include:
 
- - Semiconductor fabrication
+ - Quantitative analysis
+ - Numerical methods
+ - Stochastic calculus
  - Experimental design
+ - Semiconductor fabrication
  - Computer vision
 
  I also enjoy hiking, biking, gardening, and I have a fruit orchard in my front yard.

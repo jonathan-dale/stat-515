@@ -5,6 +5,16 @@ about:
   id: Statistics-515
   template: jolla
   image-shape: rounded
-  image-width: 15em
-
+  image-width: 35em
 ---
+
+## Statistics at George Mason
+
+This site showcases the mid term project for a course titled "Visualization for Analytics", a graduate level course offered during the spring 2026 semester in the College of Engineering & Computing under the department of Statistics at George Mason University. 
+
+A short description pulled from the course registration is listed below.
+
+::: note-text
+Class details for Visualization for Analytics Statistics 515:  
+Introduces multivariate regression and random forests for modeling data. Addresses data access, variable selection and model diagnostics. Introduces foundations for visual thinking. Reviews common statistical graphics such as dot plots, box plots, q-q plots. Addresses more advanced methods such as scatter plot matrices enhanced by smoothed or density contours, and search tools for finding graphics with suggestive patterns. Notes: Course will introduce R software for analysis. A final project will involve visualization of a real data set.
+:::

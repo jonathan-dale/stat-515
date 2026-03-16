@@ -4,6 +4,16 @@ format: html
 description: "An overview of the code used to generate a redesign of the gold reserves infographic by Visual Capitalist."
 ---
 
+### Video link to the code overview
+The link to the code overview is below, also an embedded video added for convenience.  
+[Mid Project Youtube Link](https://www.youtube.com/watch?v=wo9vZccmqwc)
+
+#### Mid project youtube embedded video
+{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+
+> How to add embedded videos: https://quarto.org/docs/authoring/markdown-basics.html#videos
+
+
 ## Midterm Redesign code overview.
 This page provides a brief overview of the code used to generate the Gold Reserves mid term project.  
 We first load libraries and packages that will be needed.
@@ -13,14 +23,20 @@ We first load libraries and packages that will be needed.
 #| include: true
 
 library(tidyverse)
+library(dbplyr)
+library(scales)
+library(maps)   # for map_data()
 ```
 
 
-We created a csv file by copying the data found in the USGS January 2025 report on page 83. This was feed into Claude, an AI tool that has gained recent popularity which made it simple to generate a proper csv file. As you can see, the original chart includes commas as thousands separators and superscript markers in the Reserves column and elsewhere, which makes it difficult to import cleanly into a data frame with `read_csv()` in R. 
+I created a csv file by copying the data found in the USGS January 2025 report on page 83 to my clipboard. As you can see in the image below, the original chart includes commas as thousands separators and superscript markers in the Reserves column and elsewhere. This makes it difficult to import cleanly into a data frame with `read_csv()` in R. To obtain a clean csv file used to load the data into R, I used Claude to generate a proper csv file used in all fo the rest of this report. 
+
 
 ![Source data taken directly from the USGS Mineral Commodity Summaries 2025](../images/mine-production-85160.jpeg)
 
-After creating the clean data.csv referenced in the original source image, the csv file loads into a data frame with no issues.  
+
+## Load data
+After creating the proper data.csv file with the data referenced in the original source image, the csv file loads into a data frame with no issues.  
 ```{r data loading}
 #| label: data loading
 #| include: true
@@ -42,48 +58,86 @@ Lets try to create a single year reserve chart using either bar
 
 
 
-
-
-## Data preparation
-The data set has at least one NA values that should be removed. 
+## Data inspection and cleaning
+The data set has at least one NA values that should be removed, also remove NA values and also the last row titled "World total".
 ```{r exploration}
-#| label: data exploration
+#| label: data exploration and cleaning
 #| include: true
 #| echo: true
 
-print(df)
 
+# Count the total number of missing values
+na_val = sum(is.na(df))
+cat("Number of missing data (n/a): ", na_val, "\n")
+
+# Count missing values in each column
+cat("A summary of missing data below:", "\n")
+colSums(is.na(df))
+
+# Get a summary of the data including NA counts
+# summary(df)
+
+# Create a filtered tibble removing NA and "World total...."
+# Also arrange by descending order
+df_clean = df %>%
+  filter(
+    !Country == "World total (rounded)",
+    !is.na(Reserves)
+  ) %>%
+  arrange(desc(Reserves))
+df_clean
+
+
+# Print the clean data frame renamed as reserves
+# print(df_clean)
+glimpse(df_clean)
 ```
 
 
 
+## Redesigning the original image
+Redesigning the original image will be done using `ggplot2` with a base layer of the clean data frame and then incrementally adding layers to it.
+> Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.)
+ use coord_flip() for horizontal versions.
 
-Creating some basic histograms using the data frame. 
 
-```{r basic histogram}
-#| label: basic_histogram
+Creating some basic plots using the data frame. 
+
+```{r basic plots}
+#| label: basic_plots
 #| include: true
 #| echo: true
 
 
-# Histogram
-ggplot(df, aes(x = Reserves)) +
-  geom_histogram(binwidth = 5, color = "salmon", fill = "steelblue") +
-  coord_flip() +
+# Simple plot 1
+ggplot(df_clean, aes(x = Reserves, y = Country)) +
+  geom_bin_2d() +
   labs(
-    title = "Reserves Distribution",
-    x = "Country",
-    y = "Reserves"
+    title = "Simple plot",
+    y = "Country",
+    x = "Reserves"
   ) +
-  theme_dark()
+  theme_light()
+
+# Simple plot 2
+ggplot(df_clean, aes(Reserves, Country)) +
+  geom_count() +
+  labs(
+    title = "Simple plot",
+    y = "Country",
+    x = "Reserves"
+  ) +
+  theme_light()
 
 
-# Histogram
-df %>% 
+
+################################################################################
+#  Pipe the data frame directly into ggplot function after mutating to plot
+df %>%
   mutate(!is.na(Reserves)) %>%
   filter(!Country == "World total (rounded)") %>%
-  ggplot(aes(x = Reserves, fill = Reserves)) +
-    geom_histogram(bins = 40, color = "white", fill = "steelblue") +
+  ggplot(aes(x = reorder(Country, Reserves), y = Reserves, fill = Reserves)) +
+  geom_col() +
     labs(
       title = "Reserves distribution",
       x = "Country",
@@ -92,52 +146,74 @@ df %>%
     theme_minimal()
 
 
-## Bar chart
 
-ggplot(df, aes(x = Country)) + 
-  geom_bar(fill = "steelblue") +
-  labs(
-    title = "Bar chart",
-    x = "Country",
-    y = "Count"
-  ) +
-  theme_dark()
-
+#  Pipe the data frame directly into ggplot function after mutating to plot
+df %>%
+  mutate(!is.na(Reserves)) %>%
+  filter(!Country == "World total (rounded)") %>%
+  ggplot(aes(x = reorder(Country, Reserves), y = Reserves, fill = Reserves)) +
+  geom_col() +
+  coord_flip() +
+    labs(
+      title = "Reserves distribution",
+      x = "Country",
+      y = "Reserves"
+    ) +
+    theme_minimal()
 
 ```
 
+As you can see, the country name in the x axis is not easy to see, this can be adjusted by using a coord_flip().
 
 
 
-Comments on increasing reserves in this time frame...perhaps due to rising gold prices, expected tariffs ect.
- 
-### Data cleaning
-Remove NA values and also the last row titled "World total".
-```{r cleaning}
-#| label: data-cleaning
+
+### Final redesign
+Create the final redesign image using ggplot
+```{r final-design}
+#| label: Final redesign
 #| include: true
 #| echo: true
-
-# Create a filtered tibble removing NA and "World total...."
-df_clean = df %>%
-  filter(
-    !Country == "World total (rounded)",
-    !is.na(Reserves)
-  )
-df_clean
+#| fig-cap: "Deposits that could be economically extracted or produced by country (metric tons)."
 
 
-# Print the clean data frame renamed as reserves
-# print(df_clean)
-glimpse(df_clean)
+## Redesign the original image
+
+# Begin with the clean data frame 'df_clean', plot reserves by country, sorting countries by their reserve values and coloring bars by the same reserve values. Use the viridis scale for color based on Reserves.
+
+df_clean %>%
+  ggplot(aes(x = reorder(Country, Reserves), y = Reserves, fill = Reserves)) +
+  geom_col() +
+  geom_text(
+    aes(label = paste0(df_clean$Reserves)),
+    hjust = -0.05,
+    size = 3.2,
+    color = "gray20"
+  ) +
+  scale_fill_continuous(type = "viridis", name = "Reserves") +
+  scale_y_continuous(labels = comma, expand = expansion(mult = c(0, 0.10))) +
+  coord_flip() +
+  labs(
+    title = "Unmined Reserves of Gold",
+    subtitle = "Deposits that could be economically extracted or produced.",
+    x = NULL,
+    y = "Reserves (metric tons)"
+  ) +
+  theme_minimal()
+ggsave("final.png")
+# ggsave("final_plot.png", width = 5, height = 5)
+# Saves last plot as 5’ x 5’ file named "plot.png" in working directory.
+# https://posit.co/wp-content/uploads/2022/10/data-visualization-1.pdf
 
 ```
 
+This image uses the Viridis color palette, which is perceptually uniform and suitable for colorblind viewers.
+<!--source: https://www.r-bloggers.com/2023/11/colour-gradient-scale-with-scale_fill_gradientn-in-r/-->
 
 
 
-## Looking for trends
-We can also visualize how mine production changed from 2023 to 2024 for each country.
+## Looking for trends in the data
+Visualize how mine production changed from 2023 to 2024 for each country. The extreme value "World total (rounded)" throws off the scale. This extreme value has been removed in the second image by starting with the clean data set.
 
 ```{r change-23-24}
 #| label: change-23-24
@@ -146,9 +222,9 @@ We can also visualize how mine production changed from 2023 to 2024 for each cou
 #| fig-cap: "Change in gold mine production from 2023 to 2024 by country (metric tons)."
 
 
-# Mutate the original data frame with out reassigning it, simply pass the mutated object directly into the ggplot.
-# begin with original data, filter 'na' values, create new column "Change_23_24"
-# Create vertical histogram by using coord_flip, 
+# Mutate the original data frame with out reassigning it, create new column "Change_23_24"
+# Pass the mutated object directly into the ggplot.
+# Create vertical histogram by using coord_flip
 
 df %>%
   filter(!is.na(Production_2023), !is.na(Production_2024)) %>%
@@ -165,59 +241,68 @@ df %>%
   ) +
   labs(
     title = "Change in gold mine production, 2023 to 2024",
+    subtitle = "Original data set",
+    x = "Country",
+    y = "Change in mine production (metric tons)"
+  ) +
+  theme_minimal()
+
+
+# Removing the World Total by using the clean data frame (df_clean), now the trends are much easier to see in the image.
+# Using the same code as above except starting with the clean data set
+df_clean %>%
+  mutate(Change_23_24 = Production_2024 - Production_2023) %>%
+  ggplot(aes(x = reorder(Country, Change_23_24),
+             y = Change_23_24,
+             fill = Change_23_24 > 0)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_manual(
+    values = c("TRUE" = "darkgreen", "FALSE" = "firebrick"),
+    name   = "Change",
+    labels = c("FALSE" = "Decrease or no change", "TRUE" = "Increase")
+  ) +
+  labs(
+    title = "Change in gold mine production, 2023 to 2024",
+    subtitle = "Outliers removed, clean data set",
     x = "Country",
     y = "Change in mine production (metric tons)"
   ) +
   theme_minimal()
 ```
 
-That looks good, however, the extreme value "World total (rounded)" is throwing off the scale. We should remove this outlier.
 
 
 
-## Remove outliers
-After removing the World Total, the image is much easier to see trends.
+## Using map layers to visualize locations
+Lets try to use map layers discussed in the class to visualize a location on the globe instead of a simple flag as seen in the original image.
+
+
+
 ```{r}
-#| label: change-23-24-remove-outliers
+#| label: Map layer graphics
 #| include: true
 #| echo: true
-#| fig-cap: "Change in gold mine production from 2023 to 2024 by country (metric tons)."
+#| fig-cap: "Map layers"
 
-# Mutate the original data frame with out reassigning it, simply pass the mutated object directly into the ggplot.
-# begin with original data, filter 'na' values, create new column "Change_23_24"
-# Create vertical histogram by using coord_flip, 
+world_tbl = map_data("world") %>% as_tibble()
+glimpse(world_tbl)
 
-df %>%
-  filter(!is.na(Production_2023), !is.na(Production_2024)) %>%
-  mutate(Change_23_24 = Production_2024 - Production_2023) %>%
-  filter(
-    !Country == "World total (rounded)",
-    !is.na(Reserves)
-  ) %>%
-  ggplot(aes(x = reorder(Country, Change_23_24),
-             y = Change_23_24,
-             fill = Change_23_24 > 0)) +
-  geom_col() +
-  coord_flip() +
-  scale_fill_manual(
-    values = c("TRUE" = "darkgreen", "FALSE" = "firebrick"),
-    name   = "Change",
-    labels = c("FALSE" = "Decrease or no change", "TRUE" = "Increase")
-  ) +
-  labs(
-    title = "Change in gold mine production, 2023 to 2024",
-    x = "Country",
-    y = "Change in mine production (metric tons)"
-  ) +
-  theme_minimal()
+## Notice the region value is not the same as our data set "Region"
+
+
+
+
+
+
 ```
 
 
 
-##### Redesigning the original image
-We will begin by introducing a foundation image using `ggplot2` and then incrementally adding layers to it.
-Read the csv into a data frame then build plots by layering ggplot() + geom_*() (histogram, bar, box, ect.)
- use coord_flip() for horizontal versions.
+
+
+
+
 
 
 

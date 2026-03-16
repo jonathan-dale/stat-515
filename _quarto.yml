@@ -5,7 +5,6 @@ project:
 website:
   title: "STAT-515 Projects"
   navbar:
-    logo: "logo.png"
     left:
       - href: index.qmd
         text: Home
@@ -15,6 +14,10 @@ website:
             text: Midterm Redesign Gold Reserves
           - href: projects/gold-reserves-code.qmd
             text: Midterm Redesign Code Overview
+          - href: projects/image-selection.qmd
+            text: Mit Project Image Selection
+          # - href: projects/final-project.qmd
+          #   text: Final project
           - href: projects/instructions.qmd
             text: new project instructions
       - about.qmd

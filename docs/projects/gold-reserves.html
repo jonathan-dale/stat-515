@@ -83,8 +83,6 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    <img src="../logo.png" alt="" class="navbar-logo light-content">
-    <img src="../logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">STAT-515 Projects</span>
@@ -112,6 +110,10 @@ ul.task-list li input[type="checkbox"] {
         <li>
     <a class="dropdown-item" href="../projects/gold-reserves-code.html">
  <span class="dropdown-text">Midterm Redesign Code Overview</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../projects/image-selection.html">
+ <span class="dropdown-text">Mit Project Image Selection</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../projects/instructions.html">
@@ -145,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#the-image-selection" id="toc-the-image-selection" class="nav-link" data-scroll-target="#the-image-selection">The image selection</a></li>
-  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a>
+  <li><a href="#project-overview" id="toc-project-overview" class="nav-link" data-scroll-target="#project-overview">Project Overview</a>
   <ul class="collapse">
   <li><a href="#original-image-design" id="toc-original-image-design" class="nav-link" data-scroll-target="#original-image-design">Original image design</a></li>
   </ul></li>
@@ -154,10 +156,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#the-data" id="toc-the-data" class="nav-link" data-scroll-target="#the-data">The data</a></li>
   </ul></li>
   <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">Data preparation</a></li>
+  <li><a href="#final-redesign" id="toc-final-redesign" class="nav-link" data-scroll-target="#final-redesign">Final Redesign</a></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap">Recap</a></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#source" id="toc-source" class="nav-link" data-scroll-target="#source">Source</a></li>
-  <li><a href="#next-image-redesign" id="toc-next-image-redesign" class="nav-link" data-scroll-target="#next-image-redesign">Next image redesign</a></li>
   </ul>
 </nav>
     </div>
@@ -179,10 +181,9 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
              <p>Jonathan Dale </p>
-             <p>Arya Arun </p>
           </div>
   </div>
     
@@ -205,8 +206,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>The dynamics of the global gold market is governed by not only the above-ground stock but also the geographic distribution of reserves in the ground which are yet to be extracted. According to recent estimates from the U.S. Geological Survey (USGS), the amount of proven gold reserves total on the order of tens of thousands metric tons worldwide with substantial concentrations among just a limited number of producers.</p>
 <p>In a 2025 visualization published by Visual Capitalist, nations are ranked by their un-mined gold reserves using the data from the USGS estimate in order to illuminate the perspective geography of future extraction. While the original image is visually engaging and communicates the basic ranking of nations, the design makes it difficult to extract precise quantitative comparisons. It falls short of an analytical instrument and is not sophisticated enough to provide the level of accuracy required for through analysis.</p>
-<p>In this project, we will address those limitations through systematic reconstruction of the original design using data from the Mineral Commodity Summaries 2025 published by the USGS, we source the exact data cited in the original graphic.</p>
-<!-- The report is accompanied by descriptive statistical summaries, analysis and visualizations redesigned using R using r-markdown. -->
+<p>In this project, I will address those limitations through systematic reconstruction of the original design using data from the Mineral Commodity Summaries 2025 published by the USGS, the exact data cited as the source in the original graphic.</p>
 </section>
 <section id="the-image-selection" class="level2">
 <h2 class="anchored" data-anchor-id="the-image-selection">The image selection</h2>
@@ -218,12 +218,12 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 </section>
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<section id="project-overview" class="level2">
+<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
 <p>This project is a recreation of the <strong>“Unmined Reserves of Gold”</strong> info graphic (shown below) using <strong>ggplot2</strong>. The original shows estimated gold reserves by country displayed in metric tons and valued in USD determined by a gold price factor of $4,362 per troy ounce.</p>
 <section id="original-image-design" class="level3">
 <h3 class="anchored" data-anchor-id="original-image-design">Original image design</h3>
-<p>In the original image titled, <strong>“Ranked: Unmined Gold Reserves by Country”</strong>, the graphic presents a detailed comparison of countries’ unmined gold reserves, ranked by estimated weight. The figure reports reserves in metric tons and also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4,362 per unit.</p>
+<p>In the original image, <strong>“Ranked: Unmined Gold Reserves by Country”</strong>, the graphic presents a detailed comparison of countries’ unmined gold reserves, ranked by estimated weight using 3D cubes of various sizes that represent the amount of unmined gold in each country. Each cube include a flag at the top representing the country, and a price tag around the flag pole indicating the dollar value of the gold after mining. The figure reports reserves in metric tons and also provides an inferred monetary value for these reserves, calculated using a pegged gold price of $4,362 per unit. Russia and Australia are tied as the top countries each with an gold reserve of 12,000 metric tons each.</p>
 <section id="original-image" class="level5">
 <h5 class="anchored" data-anchor-id="original-image">Original image:</h5>
 <div class="quarto-figure quarto-figure-center">
@@ -241,18 +241,16 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="../images/mine-production-85160.jpeg" class="img-fluid figure-img" style="width:85.0%"></p>
-<figcaption>Original data source usgs.gov, Mineral Commodity Summaries 2025</figcaption>
+<figcaption>Original data source: Mineral Commodity Summaries 2025, usgs.gov</figcaption>
 </figure>
 </div>
-<!-- >  "World Mine Production and Reserves: Reserves for Canada, China, Colombia, Indonesia, Kazakhstan, Peru, -->
-<!-- Russia, and Tanzania were revised based on company and Government reports. " -->
-<!-- The text above is clearly displayed in the image, no need for duplication.  -->
 </section>
 </section>
 </section>
 <section id="observations" class="level2">
 <h2 class="anchored" data-anchor-id="observations">Observations</h2>
-<p>Some observations about the original graphic, data, likely conclusions that can be inferred. One can see how this would lend if coupled with other sources of related information, for example: - central bank gold purchases per year (or change year over year) - gold reserves held by country</p>
+<p>The initial observation about the original graphic include its attention grabbing aspects. While this is visually appealing for the cover of a publication, magazine, or website, a “less is more” design may help the reader analyse the information better. Naturally one can conclude that the unmined gold per country seems to be concentrated but the extent is hard to gauge and the information would be better plotted as stacks bars representing each country. The sub caption “deposits that could be economically extracted…” indicates that these reserves are proven, however the underling data seem to indicate that these “reserves” are only estimates, not proven.</p>
+<p>One might be able to couple well with other sources of related information, for example: - central bank gold purchases per year (or change year over year) - gold reserves held by country</p>
 <section id="the-data" class="level3">
 <h3 class="anchored" data-anchor-id="the-data">The data</h3>
 <p>Errors found in the data: Indonesia reports reserves of 3.6K however the image displays 3.8K.<br>
@@ -262,15 +260,24 @@ Also note that the original info graphic includes data for a single year however
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data preparation</h2>
 <p>The data included 19 samples of 4 measurements. As you can see, the data contains NA values we will need to remove, and also last row, “World total” which is not included in the original image.</p>
-<section id="the-data-1" class="level4">
-<h4 class="anchored" data-anchor-id="the-data-1">The Data</h4>
 </section>
+<section id="final-redesign" class="level2">
+<h2 class="anchored" data-anchor-id="final-redesign">Final Redesign</h2>
+<p>The redesigned image is easy to read with a natural top down left to right flow. The image uses the “Viridis” color palette, which is perceptually uniform and suitable for colorblind viewers and also lends to a classic design.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="final.png" class="img-fluid figure-img"></p>
+<figcaption>The final redesign</figcaption>
+</figure>
+</div>
 </section>
 <section id="recap" class="level2">
 <h2 class="anchored" data-anchor-id="recap">Recap</h2>
+<p>The project covers the redesign of an original data visualization in order to display our competency in many of the topics covered in the STATS 515 course like data cleaning, analysis and design using the packages available with R code. The ggplot2 package is key part of R and makes it easy to display data with many different layers that can build up to a complete picture and inform the reader with ease.</p>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This original image from <a href="https://elements.visualcapitalist.com/">Elements Visual Capitalist</a> is visual appealing though too busy to find meaning full information hidden in the data with ease. The redesign helps to simplify the messages that are not so simply seen in the data with a simple look.</p>
 </section>
 <section id="source" class="level2">
 <h2 class="anchored" data-anchor-id="source">Source</h2>
@@ -278,11 +285,30 @@ Also note that the original info graphic includes data for a single year however
 <li><strong>Data:</strong> U.S. Geological Survey, January 2025; value of reserves at gold price $4,362/troy oz.</li>
 <li><strong>Original info graphic:</strong> Visual Capitalist <a href="../images/GoldDepositFooters.jpg">reference image</a>.</li>
 </ul>
-</section>
-<section id="next-image-redesign" class="level2">
-<h2 class="anchored" data-anchor-id="next-image-redesign">Next image redesign</h2>
-<!-- ![Chinese-EVs-Around-the-World](../images/Chinese-EVs-Around-the-World.jpg) -->
-<p>This image looks like a good candidate to include for a simplification, its a little messy. <a href="https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/">Chinas share of EV’s world wide</a></p>
+<!-- # TODO: Move the following section to separate page -->
+<!-- ##### Image choice
+
+> The image selection for this image redesign project was harder than expected. With every visit to [Elements](https://elements.visualcapitalist.com/) I found so many good images, a few of the candidates are displayed below.
+
+
+::: {layout-nrow=2}
+[![Chinas share of EV's world wide](../images/Chinese-EVs-Around-the-World.jpg){width=35%}](https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/)
+
+[![Central Bank Gold Reserves](../images/goldreserves-web.jpg){width=40%}](https://elements.visualcapitalist.com/mapped-which-countries-hold-the-most-gold/)
+
+[![The Size of the Oil Market](../images/The-Size-of-the-Oil-Market-vs-Top-10-Metal-Markets-Infographicjpg.jpg){width=40%}](https://elements.visualcapitalist.com/sizing-up-the-oil-market-vs-top-10-metal-markets-combined/)
+
+[![Natural Resource Value Per Capita](../images/NaturalResourceValue-web.webp){width=40%}](https://elements.visualcapitalist.com/the-worlds-top-resource-giants-ranked-by-wealth-per-capita/)
+::: 
+
+
+[linked-figures (quarto docs)](https://quarto.org/docs/authoring/figures.html#linked-figures)
+[figure-panels (quarto docs)](https://quarto.org/docs/authoring/figures.html#figure-panels)
+<!-- [![Elephant](elephant.png)](https://en.wikipedia.org/wiki/Elephant) -->
+<p><!-- - [Chinas share of EV's world wide](https://elements.visualcapitalist.com/where-chinese-evs-are-selling-the-most-worldwide/)
+  - [Central Bank Gold Reserves](https://elements.visualcapitalist.com/mapped-which-countries-hold-the-most-gold/)
+  - [The Size of the Oil Market](https://elements.visualcapitalist.com/sizing-up-the-oil-market-vs-top-10-metal-markets-combined/)
+  - [Natural Resource Value Per Capita](https://elements.visualcapitalist.com/the-worlds-top-resource-giants-ranked-by-wealth-per-capita/) --></p>
 
 
 </section>
