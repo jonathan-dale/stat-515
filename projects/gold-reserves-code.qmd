@@ -4,9 +4,16 @@ format: html
 description: "An overview of the code used to generate a redesign of the gold reserves infographic by Visual Capitalist."
 ---
 
-### Video link to the code overview
+## Video and Codebase links:
+
+
+##### Video
 The link to the code overview is below, also an embedded video added for convenience.  
 [Mid Project Youtube Link](https://www.youtube.com/watch?v=vorvYnRlsmo)
+
+##### Code base
+The code base for this project can be found on github.  
+[https://github.com/jonathan-dale/stat-515](https://github.com/jonathan-dale/stat-515)
 
 #### Mid project youtube embedded video
 {{< video https://www.youtube.com/watch?v=vorvYnRlsmo >}}
